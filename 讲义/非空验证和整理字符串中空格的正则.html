@@ -32,7 +32,7 @@ oInput.onblur=function(){
 		var oSpan=document.createElement("span");
 		oSpan.innerHTML="*请输入有效女朋友";
 		oSpan.style.color="red";
-		oSpan.style.fontWeight="bold";	
+		oSpan.style.fontWeight="bold";
 		this.parentNode.appendChild(oSpan);
 	}else{//如果输入正确，则用绿色字表达“输入正确”
 		this.value=this.value.replace(reg,"")
@@ -40,7 +40,7 @@ oInput.onblur=function(){
 		oSpan.innerHTML="输入正确";
 		oSpan.style.color="green";
 		oSpan.style.fontWeight="bold";
-		this.parentNode.appendChild(oSpan);	
+		this.parentNode.appendChild(oSpan);
 		
 	}
 		
