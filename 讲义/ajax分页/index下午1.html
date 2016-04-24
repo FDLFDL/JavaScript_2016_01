@@ -1,15 +1,39 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>无标题文档</title>
-<style type="text/css">
-table,tr,td,th{ border:1px blue solid; border-collapse:collapse;}
-td,th{  width:80px;  text-align:center;}
-#nav span,#nav a{ float:left; width:60px; height:1.3em; line-height:1.3em; text-align:center; margin:5px; background:#6FF}
-#nav div{ float:left;}
-#nav div a.current{ color:white; background:black; font-weight:bold;}
-</style>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        table, tr, td, th {
+            border: 1px blue solid;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            width: 80px;
+            text-align: center;
+        }
+
+        #nav span, #nav a {
+            float: left;
+            width: 60px;
+            height: 1.3em;
+            line-height: 1.3em;
+            text-align: center;
+            margin: 5px;
+            background: #6FF
+        }
+
+        #nav div {
+            float: left;
+        }
+
+        #nav div a.current {
+            color: white;
+            background: black;
+            font-weight: bold;
+        }
+    </style>
 
 </head>
 
@@ -17,112 +41,110 @@ td,th{  width:80px;  text-align:center;}
 
 <div id="content">
 
-<div id="nav">
-<!--
-	<span >总10页</span><span>上一页</span>
-    <p>
-    	<span>第1页</span><span>第2页</span><span>第3页</span><span>第4页</span>
-    </p>
-    <span>下一页</span>
--->
-</div>
+    <div id="nav">
+        <!--
+            <span >总10页</span><span>上一页</span>
+            <p>
+                <span>第1页</span><span>第2页</span><span>第3页</span><span>第4页</span>
+            </p>
+            <span>下一页</span>
+        -->
+    </div>
 </div>
 </body>
 </html>
 <script>
-var xhr=new XMLHttpRequest();
-xhr.open("GET","data.txt",true);
-xhr.send();
-xhr.onreadystatechange=function(){
-	if(xhr.readyState==4&&xhr.status==200){
-		var data=xhr.responseText;
-		init(data,10);//把需要处理的数据传进去，然后再指定每页有10条记录
-	}
-}
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "data.txt", true);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var data = xhr.responseText;
+            init(data, 10);//把需要处理的数据传进去，然后再指定每页有10条记录
+        }
+    }
 
-function init(data,recordNum){//data是传进来的数据，recordNum是每一页的记录数
-	var a=JSON.parse(data);
-	var content=document.getElementById("content");
-	//创建表格
-	var oTable=document.createElement("table");
-	content.appendChild(oTable);
-	
-	//创建表头
-	var oHead=document.createElement("thead");
-	oTable.appendChild(oHead);
-	var oTr=document.createElement("tr");
-	oHead.appendChild(oTr);
-	for(var attr in a[0]){
-		/*
-		var oTh=document.createElement("th");
-		//var oText=document.createTextNode(attr);
-		var oText=document.createTextNode();
-		oText.nodeValue=attr;//nodeValue这个属性只有文本节点才有，元素节点无此属性
-		oTh.appendChild(oText);	
-		oTr.appendChild(oTh);
-		//对于创建HTML标签来说，什么情况下用字符串拼接，什么时候用创建元素对象的方式呢？
-		*/
-		oTr.innerHTML+="<th>"+attr+"</th>";
-	}
-	
-	//计算出一共多少页
-	var totalPage=Math.ceil(a.length/recordNum);
-	var nav=document.createElement("div");
-	nav.id="nav";
-	content.appendChild(nav);
-	//创建总页数
-	var oTotal=document.createElement("span");
-	nav.appendChild(oTotal);
-	oTotal.innerHTML="总"+totalPage+"页";
-	//创建上一页
-	var oPrev=document.createElement("span");
-	oPrev.innerHTML="上一页";
-	oPrev.onclick=prevPage;
-	nav.appendChild(oPrev);
-	
-	//创建很多个页码
-	var container=document.createElement("div");
-	nav.appendChild(container);
-	for(var i=0;i<totalPage;i++){
-		var oPage=document.createElement("a");
-		oPage.href="###";
-		oPage.innerHTML="第"+(i+1)+"页";
-		oPage.onclick=function(e){
-			"第3页"
-			showPage(this.innerHTML.match(/\d+/)[0]-1)
-			return false;//阻止a的默认行为
-		}
-		container.appendChild(oPage);
-	}
-	
-	//创建下一页
-	var oNext=document.createElement("span");
-	nav.appendChild(oNext);
-	oNext.innerHTML="下一页";
-	oNext.onclick=nextPage;
-	
-	
-	
-	
-	
-	var oTbody=document.createElement("tbody");
-	oTable.appendChild(oTbody);
-	var oTr=document.createElement("tr");
-	oTbody.appendChild(oTr);
-	oTable.appendChild(oTr);
-	
-	
-	function showPage(n){///显示当前页
-		
-	}
-	function prevPage(){
-		
-	}
-	
-	function nextPage(){
-		
-	}
-}
+    function init(data, recordNum) {//data是传进来的数据，recordNum是每一页的记录数
+        var a = JSON.parse(data);
+        var content = document.getElementById("content");
+        //创建表格
+        var oTable = document.createElement("table");
+        content.appendChild(oTable);
+
+        //创建表头
+        var oHead = document.createElement("thead");
+        oTable.appendChild(oHead);
+        var oTr = document.createElement("tr");
+        oHead.appendChild(oTr);
+        for (var attr in a[0]) {
+            /*
+             var oTh=document.createElement("th");
+             //var oText=document.createTextNode(attr);
+             var oText=document.createTextNode();
+             oText.nodeValue=attr;//nodeValue这个属性只有文本节点才有，元素节点无此属性
+             oTh.appendChild(oText);
+             oTr.appendChild(oTh);
+             //对于创建HTML标签来说，什么情况下用字符串拼接，什么时候用创建元素对象的方式呢？
+             */
+            oTr.innerHTML += "<th>" + attr + "</th>";
+        }
+
+        //计算出一共多少页
+        var totalPage = Math.ceil(a.length / recordNum);
+        var nav = document.createElement("div");
+        nav.id = "nav";
+        content.appendChild(nav);
+        //创建总页数
+        var oTotal = document.createElement("span");
+        nav.appendChild(oTotal);
+        oTotal.innerHTML = "总" + totalPage + "页";
+        //创建上一页
+        var oPrev = document.createElement("span");
+        oPrev.innerHTML = "上一页";
+        oPrev.onclick = prevPage;
+        nav.appendChild(oPrev);
+
+        //创建很多个页码
+        var container = document.createElement("div");
+        nav.appendChild(container);
+        for (var i = 0; i < totalPage; i++) {
+            var oPage = document.createElement("a");
+            oPage.href = "###";
+            oPage.innerHTML = "第" + (i + 1) + "页";
+            oPage.onclick = function (e) {
+                "第3页"
+                showPage(this.innerHTML.match(/\d+/)[0] - 1)
+                return false;//阻止a的默认行为
+            }
+            container.appendChild(oPage);
+        }
+
+        //创建下一页
+        var oNext = document.createElement("span");
+        nav.appendChild(oNext);
+        oNext.innerHTML = "下一页";
+        oNext.onclick = nextPage;
+
+
+        var oTbody = document.createElement("tbody");
+        oTable.appendChild(oTbody);
+        var oTr = document.createElement("tr");
+        oTbody.appendChild(oTr);
+        oTable.appendChild(oTr);
+
+
+        function showPage(n) {///显示当前页
+
+        }
+
+        function prevPage() {
+
+        }
+
+        function nextPage() {
+
+        }
+    }
 
 
 </script>
